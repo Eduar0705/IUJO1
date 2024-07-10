@@ -1,61 +1,87 @@
 #include <iostream>
-#include <string>
+#include <cmath>
 
 using namespace std;
 
-//Programa de compra de maltas y refrescos
-
-int main() {
-
-int bucle=1;
-    string razonSocial;
-    string rifCedula;
-    int cantidadRefrescos, cantidadMaltas;
-
-    const float precioRefrescoDetal = 10.0;
-    const float precioRefrescoMayor = 5.0;
-    const float precioMaltasDetal = 12.0;
-    const float precioMaltasMayor = 7.0;
-    const int cantidadMinimaMayor = 6;
-   
-    while (bucle == 1){
-
-
-    cout << "Ingrese la razón social del cliente: ";
-    getline(cin, razonSocial);
-    cout << "Ingrese el RIF/Cédula del cliente: ";
-    getline(cin, rifCedula);
-
-    cout << "Ingrese la cantidad de refrescos a comprar: ";
-    cin >> cantidadRefrescos;
-    cout << "Ingrese la cantidad de maltas a comprar: ";
-    cin >> cantidadMaltas;
-
-    // Calcular monto total por tipo de producto'
-    float totalRefrescos;
-    if (cantidadRefrescos >= cantidadMinimaMayor) {
-        totalRefrescos = cantidadRefrescos * precioRefrescoMayor;
-    } else {
-        totalRefrescos = cantidadRefrescos * precioRefrescoDetal;
+long long factorial(int n) {
+    long long result = 1;
+    for (int i = 2; i <= n; i++) {
+        result *= i;
     }
-
-    float totalMaltas;
-    if (cantidadMaltas >= cantidadMinimaMayor) {
-        totalMaltas = cantidadMaltas * precioMaltasMayor;
-    } else {
-        totalMaltas = cantidadMaltas * precioMaltasDetal;
-    }
-
-    // Calcular monto total a pagar
-    float montoTotal = totalRefrescos + totalMaltas;
-
-    cout << "\n--- Resumen de compra ---\n";
-    cout << "Cliente: " << razonSocial << endl;
-    cout << "RIF/Cédula: " << rifCedula << endl;
-    cout << "Total a pagar por refrescos: $" << totalRefrescos << endl;
-    cout << "Total a pagar por maltas: $" << totalMaltas << endl;
-    cout << "Monto total a pagar: $" << montoTotal << endl;
+    return result;
 }
 
-     return 0;
+double promedioGeneral(int n, double arr[]) {
+    double sum = 0;
+    for (int i = 0; i < n; i++) {
+        sum += arr[i];
+    }
+    return sum / n;
+}
+
+double valorAbsoluto(double num) {
+    return abs(num);
+}
+
+int main() {
+    int opcion;
+    bool continuar = true;
+
+    while (continuar) {
+        cout << "Seleccione una opcion:" << endl;
+        cout << "1. Calcular factorial" << endl;
+        cout << "2. Calcular promedio" << endl;
+        cout << "3. Calcular valor absoluto" << endl;
+        cout << "4. Salir" << endl;
+        cout << "Ingrese su opcion (1, 2, 3 o 4): ";
+        cin >> opcion;
+
+        switch (opcion) {
+            case 1: {
+                int num;
+                cout << "Ingrese un numero: ";
+                cin >> num;
+                if (num < 0) {
+                    cout << "El factorial no está definido para numeros negativos." << endl;
+                } else {
+                    cout << "El factorial de " << num << " es: " << factorial(num) << endl;
+                }
+                break;
+            }
+            case 2: {
+                int n;
+                cout << "Ingrese la cantidad de elementos: ";
+                cin >> n;
+                double arr[n];
+                cout << "Ingrese los valores de los elementos:" << endl;
+                for (int i = 0; i < n; i++) {
+                    cout << "Producto " << i + 1 << ": ";
+                    cin >> arr[i];
+                }
+                cout << "El promedio general es: " << promedioGeneral(n, arr) << endl;
+                break;
+            }
+            case 3: {
+                double num;
+                cout << "Ingrese un numero: ";
+                cin >> num;
+                cout << "El valor absoluto de " << num << " es: " << valorAbsoluto(num) << endl;
+                break;
+            }
+            case 4:
+                continuar = false;
+                break;
+            default:
+                cout << "Opción invalida." << endl;
+        }
+
+        cout << "¿Desea realizar otra operacion? (s/n): ";
+        char respuesta;
+        cin >> respuesta;
+        if (respuesta == 'n' || respuesta == 'N') {
+            continuar = false;
+        }
+    }
+
+    return 0;
 }
